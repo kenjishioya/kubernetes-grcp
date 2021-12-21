@@ -1,0 +1,169 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-grpc-go
+  labels:
+    app: kubernetes-grpc
+    component: go
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: kubernetes-grpc-go
+      labels:
+        app: kubernetes-grpc
+        component: go
+    spec:
+      hostname: kubernetes-grpc-go
+      containers:
+        - name: kubernetes-grpc-go
+          image: asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-go
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+  selector:
+    matchLabels:
+      app: kubernetes-grpc
+      component: go
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-grpc-java
+  labels:
+    app: kubernetes-grpc
+    component: java
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: kubernetes-grpc-java
+      labels:
+        app: kubernetes-grpc
+        component: java
+    spec:
+      hostname: kubernetes-grpc-java
+      containers:
+        - name: kubernetes-grpc-java
+          image: asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-java
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 50051
+  selector:
+    matchLabels:
+      app: kubernetes-grpc
+      component: java
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-grpc-node
+  labels:
+    app: kubernetes-grpc
+    component: node
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: kubernetes-grpc-node
+      labels:
+        app: kubernetes-grpc
+        component: node
+    spec:
+      hostname: kubernetes-grpc-node
+      containers:
+        - name: kubernetes-grpc-node
+          image: asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-node
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 50051
+  selector:
+    matchLabels:
+      app: kubernetes-grpc
+      component: node
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-grpc-python
+  labels:
+    app: kubernetes-grpc
+    component: python
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: kubernetes-grpc-python
+      labels:
+        app: kubernetes-grpc
+        component: python
+    spec:
+      hostname: kubernetes-grpc-python
+      containers:
+        - name: kubernetes-grpc-python
+          image: asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-python
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 50051
+  selector:
+    matchLabels:
+      app: kubernetes-grpc
+      component: python
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-grpc-go
+  labels:
+    app: kubernetes-grpc
+    component: go
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30007
+  selector:
+    component: go
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-grpc-java
+  labels:
+    app: kubernetes-grpc
+    component: java
+spec:
+  ports:
+    - port: 50051
+      targetPort: 50051
+  selector:
+    component: java
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-grpc-node
+  labels:
+    app: kubernetes-grpc
+    component: node
+spec:
+  ports:
+    - port: 50051
+      targetPort: 50051
+  selector:
+    component: node
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-grpc-python
+  labels:
+    app: kubernetes-grpc
+    component: python
+spec:
+  ports:
+    - port: 50051
+      targetPort: 50051
+  selector:
+    component: python

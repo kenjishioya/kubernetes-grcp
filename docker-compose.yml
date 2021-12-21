@@ -1,0 +1,36 @@
+version: "3"
+services:
+  kubernetes-grpc-go:
+    build:
+      context: ./go
+    image: asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-go
+    container_name: kubernetes-grpc-go
+    networks: 
+      - kubernetes-grpc-net
+    ports:
+      - 8080:8080
+  kubernetes-grpc-java:
+    build:
+      context: ./java
+    image: asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-java
+    container_name: kubernetes-grpc-java
+    networks: 
+      - kubernetes-grpc-net
+  kubernetes-grpc-node:
+    build:
+      context: ./node
+    image: asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-node
+    container_name: kubernetes-grpc-node
+    networks: 
+      - kubernetes-grpc-net
+  kubernetes-grpc-python:
+    build:
+      context: ./python
+    image: asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-python
+    container_name: kubernetes-grpc-python
+    networks: 
+      - kubernetes-grpc-net
+networks:
+  kubernetes-grpc-net:
+    name: kubernetes-grpc-net
+    driver: bridge

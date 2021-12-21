@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-grpc-java
+  labels:
+    app: kubernetes-grpc
+    component: java
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: kubernetes-grpc-java
+      labels:
+        app: kubernetes-grpc
+        component: java
+    spec:
+      hostname: kubernetes-grpc-java
+      containers:
+        - name: kubernetes-grpc-java
+          image: asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-java
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 50051
+  selector:
+    matchLabels:
+      app: kubernetes-grpc
+      component: java

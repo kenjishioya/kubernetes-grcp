@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-grpc-go
+  labels:
+    app: kubernetes-grpc
+    component: go
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: kubernetes-grpc-go
+      labels:
+        app: kubernetes-grpc
+        component: go
+    spec:
+      hostname: kubernetes-grpc-go
+      containers:
+        - name: kubernetes-grpc-go
+          image: asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-go
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+  selector:
+    matchLabels:
+      app: kubernetes-grpc
+      component: go

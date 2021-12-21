@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-grpc-java
+  labels:
+    app: kubernetes-grpc
+    component: java
+spec:
+  ports:
+    - port: 50051
+      targetPort: 50051
+  selector:
+    component: java

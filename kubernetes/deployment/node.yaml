@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-grpc-node
+  labels:
+    app: kubernetes-grpc
+    component: node
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: kubernetes-grpc-node
+      labels:
+        app: kubernetes-grpc
+        component: node
+    spec:
+      hostname: kubernetes-grpc-node
+      containers:
+        - name: kubernetes-grpc-node
+          image: asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-node
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 50051
+  selector:
+    matchLabels:
+      app: kubernetes-grpc
+      component: node

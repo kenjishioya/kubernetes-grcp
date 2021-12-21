@@ -1,0 +1,58 @@
+version: "3"
+services:
+  kubernetes-grpc-go:
+    build:
+      context: ./go
+      dockerfile: Dockerfile.dev
+    image: kubernetes-grpc-go-dev
+    container_name: kubernetes-grpc-go
+    networks: 
+      - kubernetes-grpc-net
+    tty: true
+    working_dir: '/go/src/github.com/kenjishioya/app'
+    volumes:
+      - ./go:/go/src/github.com/kenjishioya/app
+    ports:
+      - 8080:8080
+  kubernetes-grpc-java:
+    image: gradle:7.3-jdk17
+    container_name: kubernetes-grpc-java
+    networks: 
+      - kubernetes-grpc-net
+    tty: true
+    working_dir: '/src'
+    volumes:
+      - ./java:/src
+    command: ['bash']
+  kubernetes-grpc-node:
+    image: node:17.2-alpine
+    container_name: kubernetes-grpc-node
+    networks: 
+      - kubernetes-grpc-net
+    tty: true
+    working_dir: '/src'
+    volumes:
+      - ./node:/src
+    environment:
+      - NODE_PATH=/usr/local/lib/node_modules/
+    command: >
+      sh -c 'npm install -g @grpc/grpc-js@1.4.4 @grpc/proto-loader@0.6.7 &&
+      export  &&
+      sh'
+  kubernetes-grpc-python:
+    image: python:3.9
+    container_name: kubernetes-grpc-python
+    networks: 
+      - kubernetes-grpc-net
+    tty: true
+    working_dir: '/src'
+    volumes:
+      - ./python:/src
+    command: >
+      bash -c 'python -m pip install --upgrade pip &&
+      pip install grpcio==1.42.0 grpcio-tools==1.42.0 &&
+      bash'
+networks:
+  kubernetes-grpc-net:
+    name: kubernetes-grpc-net
+    driver: bridge

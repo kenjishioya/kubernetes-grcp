@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-grpc-python
+  labels:
+    app: kubernetes-grpc
+    component: python
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: kubernetes-grpc-python
+      labels:
+        app: kubernetes-grpc
+        component: python
+    spec:
+      hostname: kubernetes-grpc-python
+      containers:
+        - name: kubernetes-grpc-python
+          image: asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-python
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 50051
+  selector:
+    matchLabels:
+      app: kubernetes-grpc
+      component: python

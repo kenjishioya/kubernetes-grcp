@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package greet;
+option go_package="go/greetpd";
+option java_package = "com.proto.greet";
+option java_multiple_files = true;
+
+message GreetRequest {
+    repeated string call_list  = 1;
+}
+
+message GreetResponse {
+    repeated string answer_list = 1;
+}
+
+service GreetService{
+    rpc Greet(GreetRequest) returns (GreetResponse) {};
+}
