@@ -36,12 +36,12 @@ func contains(s []string, str string) bool {
 
 func validateTargetCall(targetCall string, requestParam []string, answerList []string) (string, []string) {
 	if contains(call_options, targetCall) {
-		return targetCal, answerList
+		return targetCall, answerList
 	} else {
 		answerList = append(answerList, fmt.Sprintf("There is no %v in the list. Choose from %v!", targetCall, strings.Join(call_options, ", ")))
 		if len(requestParam) > 0 {
 			_targetCall, _requestParam := requestParam[0], requestParam[1:]
-			return validateTargetCall(_targetCall, answerList)
+			return validateTargetCall(_targetCall, _requestParam, answerList)
 		}
 	}
 	return "", answerList

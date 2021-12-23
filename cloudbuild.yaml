@@ -1,0 +1,25 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-go', './go' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push' ,'asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-go' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-java', './java' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push' ,'asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-java' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-node', './node' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push' ,'asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-node' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-python', './python' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push' ,'asia.gcr.io/kubernetes-grpc-335607/kubernetes-grpc-python' ]
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [ 'container', 'clusters', 'get-credentials', 'kubernetes-grpc', '--zone', 'asia-east1-a', '--project', 'kubernetes-grpc-335607' ]
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: [ 'apply', '-f', './kubernetes/deployApp.yaml' ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=asia-east1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=kubernetes-grpc'
+

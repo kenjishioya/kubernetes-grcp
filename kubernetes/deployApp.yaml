@@ -118,11 +118,10 @@ metadata:
     app: kubernetes-grpc
     component: go
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 30007
   selector:
     component: go
 ---
