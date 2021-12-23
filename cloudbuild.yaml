@@ -22,4 +22,6 @@ steps:
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=asia-east1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=kubernetes-grpc'
+options:
+  logging: CLOUD_LOGGING_ONLY
 
